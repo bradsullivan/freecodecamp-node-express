@@ -11,8 +11,7 @@ app.use((req,res,next) => {
 });
 
 // --> 11)  Mount the body-parser middleware  here
-bodyParser.urlencoded({extended: false});
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: false}));
 
 /** 1) Meet the node console. */
 console.log("Hello World");
@@ -76,11 +75,16 @@ app.get("/name",(req,res,next) => {
   
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
-bodyParser.urlencoded({extended: false});
-app.use(bodyParser.urlencoded()); // Must call '.urlencoded()'. Calling just bodyParser will result in an error
+// app.use(bodyParser.urlencoded({extended: false}));
+// Must call '.urlencoded()'. Calling just bodyParser will result in an error
 
 /** 12) Get data form POST  */
-
+app.post("/name", (req,res,next) => {
+  // console.log(req.body); // doesn't work. Throws error
+    res.json({
+        name: `${req.body.first} ${req.body.last}`
+    });
+});
 
 
 // This would be part of the basic setup of an Express app
