@@ -29,15 +29,17 @@ app.get("/",(req,res) => {
 app.use(express.static(`${__dirname}/public`));
 
 /** 5) serve JSON on a specific route */
-// ENV variable has to be set in-line as far as I can tell (without the use of some other config or package at least). Can't just set a Bash env variable. Need to set it like: MESSAGE_STYLE=uppercase node server.js
 app.get("/json",(req,res)=>{
+    res.json({"message": "Hello json"});
+});
+
+/** 6) Use the .env file to configure the app */
+// ENV variable has to be set in-line as far as I can tell (without the use of some other config or package at least). Can't just set a Bash env variable. Need to set it like: MESSAGE_STYLE=uppercase node server.js
+ app.get("/json",(req,res)=>{
     let message = "Hello json";
     if (process.env.MESSAGE_STYLE.toLowerCase() == "uppercase".toLowerCase()) message = message.toUpperCase();
     res.json({"message": message});
 });
-
-/** 6) Use the .env file to configure the app */
- 
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
